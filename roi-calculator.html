@@ -1,0 +1,32 @@
+<section class="content">
+    <h2>ROI Calculator</h2>
+    <p>Estimate your potential savings and return on investment with our PowerUp chargers. Enter your details below to calculate.</p>
+    <form id="roi-form">
+        <label for="fuel-cost">Current Monthly Fuel Cost ($):</label><br>
+        <input type="number" id="fuel-cost" name="fuel-cost" required><br><br>
+        <label for="charger-cost">Charger Installation Cost ($):</label><br>
+        <input type="number" id="charger-cost" name="charger-cost" required><br><br>
+        <label for="rebates">Available Rebates ($):</label><br>
+        <input type="number" id="rebates" name="rebates" required><br><br>
+        <label for="years">Years for ROI Calculation:</label><br>
+        <input type="number" id="years" name="years" value="5" required><br><br>
+        <button type="button" onclick="calculateROI()">Calculate</button>
+    </form>
+    <p id="roi-result"></p>
+    <script>
+        function calculateROI() {
+            const fuelCost = parseFloat(document.getElementById('fuel-cost').value);
+            const chargerCost = parseFloat(document.getElementById('charger-cost').value);
+            const rebates = parseFloat(document.getElementById('rebates').value);
+            const years = parseFloat(document.getElementById('years').value);
+            if (isNaN(fuelCost) || isNaN(chargerCost) || isNaN(rebates) || isNaN(years)) {
+                document.getElementById('roi-result').innerText = 'Please enter valid numbers.';
+                return;
+            }
+            const annualSavings = fuelCost * 12 * 0.7;
+            const totalSavings = (annualSavings * years) + rebates;
+            const netROI = totalSavings - chargerCost;
+            document.getElementById('roi-result').innerHTML = `Total ROI Over ${years} Years: $${netROI.toFixed(2)}<br>Annual Fuel Savings: $${annualSavings.toFixed(2)}`;
+        }
+    </script>
+</section>
